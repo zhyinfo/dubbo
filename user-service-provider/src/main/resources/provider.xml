@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<!-- 1、指定当前服务/应用的名字（同样的服务名称相同，不要和别的服务同名） -->
+	<dubbo:application name="user-service-provider"/>
+	
+	<!-- 2、指定注册中心的地址 -->
+	<!-- <dubbo:registry address="zookeeper://120.79.135.213:2180?backup=120.79.135.213:2181,120.79.135.213:2182"/> -->
+	<dubbo:registry protocol="zookeeper" address="120.79.135.213:2180,120.79.135.213:2181,120.79.135.213:2182"/>
+	
+	<!-- 3、指定暴露服务的通信规则（通信协议、通信端口） -->
+	<dubbo:protocol name="dubbo" port="20880"/>
+	
+	<!-- 4、声明需要暴露的服务接口 ref：指向服务的真正实现对象-->
+	<dubbo:service interface="com.zhy.dubbo.demo.api.service.UserService" ref="userServiceImpl" timeout="2000" version="1.0.0">
+		<dubbo:method name="getUserAddressList" timeout="1000"/>
+	</dubbo:service>
+	
+	<!-- 5、服务的实现 -->
+	<bean id="userServiceImpl" class="com.zhy.dubbo.demo.service.impl.UserServiceImpl"/>
+	
+	<!-- 多版本 -->
+	<dubbo:service interface="com.zhy.dubbo.demo.api.service.UserService" ref="userServiceImpl02" version="2.0.0"/>
+	<bean id="userServiceImpl02" class="com.zhy.dubbo.demo.service.impl.UserServiceImpl2"/>
+	
+	<!-- 配置连接监控中心monitor -->
+	<dubbo:monitor protocol="registry"/>
+	
+</beans>

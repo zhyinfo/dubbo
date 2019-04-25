@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: commom..
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: ecar
+Implementation-Vendor-Id: com.zhy
+Build-Jdk: 1.8.0_172
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/dubbo-demo/dubbo-demo-api
+Created-By: Maven Integration for Eclipse
+
